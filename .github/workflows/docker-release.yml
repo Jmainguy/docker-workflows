@@ -68,9 +68,11 @@ jobs:
           annotations: |
             org.opencontainers.image.authors=${{ inputs.authors }}
             org.opencontainers.image.vendor=${{ inputs.vendor }}
+            org.opencontainers.image.version=v${{ needs.release-please.outputs.major }}.${{ needs.release-please.outputs.minor }}.${{ needs.release-please.outputs.patch }}
           labels: |
             org.opencontainers.image.authors=${{ inputs.authors }}
-            org.opencontainers.image.vendor=${{ inputs.vendor }}    
+            org.opencontainers.image.vendor=${{ inputs.vendor }}
+            org.opencontainers.image.version=v${{ needs.release-please.outputs.major }}.${{ needs.release-please.outputs.minor }}.${{ needs.release-please.outputs.patch }}
           images: |
             ${{ inputs.docker_url }}/${{ inputs.image_name }}:v${{ needs.release-please.outputs.major }}.${{ needs.release-please.outputs.minor }}.${{ needs.release-please.outputs.patch }}
             ${{ inputs.docker_url }}/${{ inputs.image_name }}:latest
