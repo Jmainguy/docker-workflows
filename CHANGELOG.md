@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/Jmainguy/docker-workflows/compare/v1.1.0...v1.1.1) (2024-10-16)
+
+
+### Bug Fixes
+
+* setup qemu and buildx ([a31c81e](https://github.com/Jmainguy/docker-workflows/commit/a31c81e4ce6a8e62884f348cc8699a44b6fb1d61))
+
 ## [1.1.0](https://github.com/Jmainguy/docker-workflows/compare/v1.0.1...v1.1.0) (2024-10-16)
 
 
