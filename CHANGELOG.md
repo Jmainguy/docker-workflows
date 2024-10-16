@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/Jmainguy/docker-workflows/compare/v1.1.1...v2.0.0) (2024-10-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* authors and vendor are now required inputs
+
+### Features
+
+* authors and vendor are now required inputs ([3554f5c](https://github.com/Jmainguy/docker-workflows/commit/3554f5ccacc4dcfa90514db77699da9cc98296e4))
+
 ## [1.1.1](https://github.com/Jmainguy/docker-workflows/compare/v1.1.0...v1.1.1) (2024-10-16)
 
 
