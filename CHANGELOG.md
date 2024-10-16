@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.2](https://github.com/Jmainguy/docker-workflows/compare/v2.0.1...v2.0.2) (2024-10-16)
+
+
+### Bug Fixes
+
+* apply labels and annotations ([6cb5b4a](https://github.com/Jmainguy/docker-workflows/commit/6cb5b4ab69d9922a1f3b7d4b91c07bfb6b9dffbb))
+
 ## [2.0.1](https://github.com/Jmainguy/docker-workflows/compare/v2.0.0...v2.0.1) (2024-10-16)
 
 
