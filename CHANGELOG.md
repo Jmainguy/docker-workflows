@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/Jmainguy/docker-workflows/compare/v1.0.0...v1.0.1) (2024-10-16)
+
+
+### Bug Fixes
+
+* env variables ([b62a880](https://github.com/Jmainguy/docker-workflows/commit/b62a88059b0c714edc04863591cf7813fb872335))
+
 ## 1.0.0 (2024-10-16)
 
 
