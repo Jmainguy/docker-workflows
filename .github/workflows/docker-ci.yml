@@ -1,0 +1,30 @@
+name: Reusable Docker CI Workflow
+
+on:
+  workflow_call:
+
+jobs:
+  security:
+    name: Scan code in repository
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: git checkout
+        uses: actions/checkout@v4
+
+      # Scan container
+      - name: Build the container image
+        run: docker build . --file Dockerfile --tag localbuild/scanme:latest
+
+      - name: Scan docker image
+        id: docker
+        uses: anchore/scan-action@v4
+        with:
+          image: "localbuild/scanme:latest"
+          severity-cutoff: high
+
+      - name: upload Anchore scan SARIF report for docker
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: ${{ steps.docker.outputs.sarif }}
+          category: "docker"
