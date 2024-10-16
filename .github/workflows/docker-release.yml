@@ -22,6 +22,9 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       release_created: ${{ steps.release-please.outputs.release_created }}
+      major: ${{ steps.release-please.outputs.major }}
+      minor: ${{ steps.release-please.outputs.minor }}
+      patch: ${{ steps.release-please.outputs.patch }}
     steps:
       - uses: googleapis/release-please-action@v4
         id: release-please
@@ -39,6 +42,15 @@ jobs:
 
       - run: git fetch --force --tags
 
+      # Set version tag as an environment variable
+      - name: Set version tag
+        run: |
+          if [ -z "${{ inputs.image_tag }}" ]; then
+            echo "IMAGE_TAG=v${{ needs.release-please.outputs.major }}.${{ needs.release-please.outputs.minor }}.${{ needs.release-please.outputs.patch }}" >> $GITHUB_ENV
+          else
+            echo "IMAGE_TAG=${{ inputs.image_tag }}" >> $GITHUB_ENV
+          fi
+
       # Conditionally login to Docker
       - name: Login to docker
         uses: docker/login-action@v3
@@ -50,9 +62,9 @@ jobs:
       # Build the Docker image
       - name: Build Docker image
         run: |
-          docker build -t ${{ inputs.docker_url }}/${{ inputs.image_name }}:${{ inputs.image_tag || 'v${{ needs.release-please.outputs.major }}.${{ needs.release-please.outputs.minor }}.${{ needs.release-please.outputs.patch }}' }} .
+          docker build -t ${{ inputs.docker_url }}/${{ inputs.image_name }}:${{ env.IMAGE_TAG }} .
 
       # Push the Docker image to registry
       - name: Push Docker image
         run: |
-          docker push ${{ inputs.docker_url }}/${{ inputs.image_name }}:${{ inputs.image_tag || 'v${{ needs.release-please.outputs.major }}.${{ needs.release-please.outputs.minor }}.${{ needs.release-please.outputs.patch }}' }}
+          docker push ${{ inputs.docker_url }}/${{ inputs.image_name }}:${{ env.IMAGE_TAG }}
