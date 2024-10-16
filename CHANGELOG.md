@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/Jmainguy/docker-workflows/compare/v1.0.1...v1.1.0) (2024-10-16)
+
+
+### Features
+
+* support multiarch and latest ([8dddefb](https://github.com/Jmainguy/docker-workflows/commit/8dddefbaa393dbf543e8e124fbfc11f2f56eb734))
+
 ## [1.0.1](https://github.com/Jmainguy/docker-workflows/compare/v1.0.0...v1.0.1) (2024-10-16)
 
 
