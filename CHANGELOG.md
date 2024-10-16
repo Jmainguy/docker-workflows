@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.3](https://github.com/Jmainguy/docker-workflows/compare/v2.0.2...v2.0.3) (2024-10-16)
+
+
+### Bug Fixes
+
+* add version ([3a08b01](https://github.com/Jmainguy/docker-workflows/commit/3a08b01f260fce3324cbda71bdb82df799fdba61))
+
 ## [2.0.2](https://github.com/Jmainguy/docker-workflows/compare/v2.0.1...v2.0.2) (2024-10-16)
 
 
