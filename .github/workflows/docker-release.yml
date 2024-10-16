@@ -6,6 +6,12 @@ on:
       docker_password:
         required: false  # Optional, only required if Docker login is needed
     inputs:
+      authors:
+        type: string
+        required: true
+      vendor:
+        type: string
+        required: true
       docker_url:
         type: string
         required: false
@@ -55,11 +61,25 @@ jobs:
           username: ${{ secrets.docker_username }}
           password: ${{ secrets.docker_password }}
 
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          labels: |
+            org.opencontainers.image.authors=${{ inputs.authors }}
+            org.opencontainers.image.vendor=${{ inputs.vendor }}
+
+          images: |
+            ${{ inputs.docker_url }}/${{ inputs.image_name }}:v${{ needs.release-please.outputs.major }}.${{ needs.release-please.outputs.minor }}.${{ needs.release-please.outputs.patch }}
+            ${{ inputs.docker_url }}/${{ inputs.image_name }}:latest
+  
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
           platforms: linux/amd64,linux/arm64
           push: true
+          annotations: ${{ steps.meta.outputs.annotations }}
           tags: |
             ${{ inputs.docker_url }}/${{ inputs.image_name }}:v${{ needs.release-please.outputs.major }}.${{ needs.release-please.outputs.minor }}.${{ needs.release-please.outputs.patch }}
             ${{ inputs.docker_url }}/${{ inputs.image_name }}:latest
