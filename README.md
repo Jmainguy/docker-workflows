@@ -9,7 +9,6 @@ Place a two files in your repos .github/workflows/ directory
 
 release.yaml
 ```yaml
-name: Release Docker Image
 
 on:
   push:
@@ -30,11 +29,17 @@ jobs:
       docker_url: zot.soh.re
       image_name: ${{ github.event.repository.name }}
       authors: "Jonathan Seth Mainguy <jon@soh.re>"
+      url: "${{ GITHUB_SERVER_URL }}/${{GITHUB_REPOSITORY }}"
+      source: "${{ GITHUB_SERVER_URL }}/${{GITHUB_REPOSITORY }}"
+      description: "Container for serving soh.re"
+      title: "soh.re"
+      licenses: "GPL-2.0"
       vendor: "Jmainguy"
       docker_context: docker/
+
 ```
 
-push.yml
+ci.yml
 ```yaml
 name: Build and Scan Docker Image
 

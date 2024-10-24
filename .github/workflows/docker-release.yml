@@ -9,6 +9,21 @@ on:
       authors:
         type: string
         required: true
+      url:
+        type: string
+        required: true
+      source:
+        type: string
+        required: true
+      description:
+        type: string
+        required: true
+      title:
+        type: string
+        required: true
+      licenses:
+        type: string
+        required: true
       vendor:
         type: string
         required: true
@@ -71,10 +86,20 @@ jobs:
         with:
           annotations: |
             org.opencontainers.image.authors=${{ inputs.authors }}
+            org.opencontainers.image.url=${{ inputs.url }}
+            org.opencontainers.image.source=${{ inputs.source }}
+            org.opencontainers.image.description=${{ inputs.description }}
+            org.opencontainers.image.title=${{ inputs.title }}
+            org.opencontainers.image.licenses=${{ inputs.licenses }}
             org.opencontainers.image.vendor=${{ inputs.vendor }}
             org.opencontainers.image.version=v${{ needs.release-please.outputs.major }}.${{ needs.release-please.outputs.minor }}.${{ needs.release-please.outputs.patch }}
           labels: |
             org.opencontainers.image.authors=${{ inputs.authors }}
+            org.opencontainers.image.url=${{ inputs.url }}
+            org.opencontainers.image.source=${{ inputs.source }}
+            org.opencontainers.image.description=${{ inputs.description }}
+            org.opencontainers.image.title=${{ inputs.title }}
+            org.opencontainers.image.licenses=${{ inputs.licenses }}
             org.opencontainers.image.vendor=${{ inputs.vendor }}
             org.opencontainers.image.version=v${{ needs.release-please.outputs.major }}.${{ needs.release-please.outputs.minor }}.${{ needs.release-please.outputs.patch }}
           images: |
