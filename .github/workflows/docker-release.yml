@@ -15,6 +15,10 @@ on:
       docker_url:
         type: string
         required: false
+      docker_context:
+        type: string
+        required: false
+        default: '.'
       image_name:
         type: string
         required: true   # Image name is required for Docker build and push
@@ -80,6 +84,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
+          context: ${{ inputs.docker_context }}
           platforms: linux/amd64,linux/arm64
           push: true
           annotations: ${{ steps.meta.outputs.annotations }}
