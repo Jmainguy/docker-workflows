@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://github.com/Jmainguy/docker-workflows/compare/v2.0.3...v2.1.0) (2024-10-24)
+
+
+### Features
+
+* support docker context ([cd627ba](https://github.com/Jmainguy/docker-workflows/commit/cd627ba5271940edf7500c02514810e963a40d52))
+
 ## [2.0.3](https://github.com/Jmainguy/docker-workflows/compare/v2.0.2...v2.0.3) (2024-10-16)
 
 
