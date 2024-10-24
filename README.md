@@ -21,7 +21,7 @@ permissions:
 
 jobs:
   release-please:
-    uses: Jmainguy/docker-workflows/.github/workflows/docker-release.yml@v2
+    uses: Jmainguy/docker-workflows/.github/workflows/docker-release.yml@v3
     secrets:
       docker_username: ${{ secrets.DOCKER_USERNAME }}
       docker_password: ${{ secrets.DOCKER_PASSWORD }}
@@ -29,8 +29,8 @@ jobs:
       docker_url: zot.soh.re
       image_name: ${{ github.event.repository.name }}
       authors: "Jonathan Seth Mainguy <jon@soh.re>"
-      url: "${{ GITHUB_SERVER_URL }}/${{GITHUB_REPOSITORY }}"
-      source: "${{ GITHUB_SERVER_URL }}/${{GITHUB_REPOSITORY }}"
+      url: "https://github.com/Jmainguy/soh.re"
+      source: "https://github.com/Jmainguy/soh.re"
       description: "Container for serving soh.re"
       title: "soh.re"
       licenses: "GPL-2.0"
@@ -58,7 +58,7 @@ permissions:
 
 jobs:
   docker-ci:
-    uses: Jmainguy/docker-workflows/.github/workflows/docker-ci.yml@v2
+    uses: Jmainguy/docker-workflows/.github/workflows/docker-ci.yml@v3
     with:
       docker_context: docker/
 ```

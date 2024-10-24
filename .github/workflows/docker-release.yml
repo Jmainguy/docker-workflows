@@ -105,6 +105,8 @@ jobs:
           images: |
             ${{ inputs.docker_url }}/${{ inputs.image_name }}:v${{ needs.release-please.outputs.major }}.${{ needs.release-please.outputs.minor }}.${{ needs.release-please.outputs.patch }}
             ${{ inputs.docker_url }}/${{ inputs.image_name }}:latest
+        env:
+          DOCKER_METADATA_ANNOTATIONS_LEVELS: manifest,index
 
       - name: Build and push
         uses: docker/build-push-action@v6
