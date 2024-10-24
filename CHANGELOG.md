@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.1](https://github.com/Jmainguy/docker-workflows/compare/v3.0.0...v3.0.1) (2024-10-24)
+
+
+### Bug Fixes
+
+* add to index and manifest ([23cf15a](https://github.com/Jmainguy/docker-workflows/commit/23cf15afb80830435da9c288829316a1102f0aa1))
+
 ## [3.0.0](https://github.com/Jmainguy/docker-workflows/compare/v2.1.0...v3.0.0) (2024-10-24)
 
 
