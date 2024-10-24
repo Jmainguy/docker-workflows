@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.0.0](https://github.com/Jmainguy/docker-workflows/compare/v2.1.0...v3.0.0) (2024-10-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* New required inputs
+
+### Features
+
+* New required inputs ([454a23e](https://github.com/Jmainguy/docker-workflows/commit/454a23ee1e834ac730b667e185b62c6e354c83ed))
+
 ## [2.1.0](https://github.com/Jmainguy/docker-workflows/compare/v2.0.3...v2.1.0) (2024-10-24)
 
 
