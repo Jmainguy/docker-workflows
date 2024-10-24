@@ -2,6 +2,11 @@ name: Reusable Docker CI Workflow
 
 on:
   workflow_call:
+    inputs:
+      docker_context:
+        type: string
+        required: false
+        default: '.'
 
 jobs:
   security:
@@ -14,7 +19,9 @@ jobs:
 
       # Scan container
       - name: Build the container image
-        run: docker build . --file Dockerfile --tag localbuild/scanme:latest
+        run: |
+          cd ${{ inputs.docker_context }}
+          docker build . --file Dockerfile --tag localbuild/scanme:latest
 
       - name: Scan docker image
         id: docker
