@@ -25,7 +25,7 @@ jobs:
 
       - name: Scan docker image
         id: docker
-        uses: anchore/scan-action@v5
+        uses: anchore/scan-action@v6
         with:
           image: "localbuild/scanme:latest"
           severity-cutoff: high
