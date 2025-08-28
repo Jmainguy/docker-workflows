@@ -15,7 +15,7 @@ jobs:
     steps:
 
       - name: git checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       # Scan container
       - name: Build the container image
