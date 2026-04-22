@@ -51,7 +51,7 @@ jobs:
       minor: ${{ steps.release-please.outputs.minor }}
       patch: ${{ steps.release-please.outputs.patch }}
     steps:
-      - uses: googleapis/release-please-action@v4
+      - uses: googleapis/release-please-action@v5
         id: release-please
         with:
           release-type: go
