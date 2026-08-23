@@ -134,6 +134,9 @@ jobs:
           context: ${{ inputs.docker_context }}
           platforms: linux/amd64,linux/arm64
           push: true
+          # Zot validates mandatory OCI labels on every uploaded manifest.
+          # BuildKit provenance attestations cannot carry those application labels.
+          provenance: false
           annotations: ${{ steps.meta.outputs.annotations }}
           labels: ${{ steps.meta.outputs.labels }}
           tags: |
