@@ -2,9 +2,15 @@ on:
   workflow_call:
     secrets:
       docker_username:
-        required: false  # Optional, only required if Docker login is needed
+        required: true
       docker_password:
-        required: false  # Optional, only required if Docker login is needed
+        required: true
+      notation_private_key:
+        required: true
+      notation_certificate_chain:
+        required: true
+      notation_ca_certificate:
+        required: true
     inputs:
       authors:
         type: string
@@ -29,19 +35,29 @@ on:
         required: true
       docker_url:
         type: string
+        required: true
+      registry_namespace:
+        description: OCI repository namespace
+        type: string
         required: false
+        default: jmainguy
+      notation_key_name:
+        description: Local name assigned to the Notation signing key
+        type: string
+        required: false
+        default: jon-soh-re
       docker_context:
         type: string
         required: false
         default: '.'
       image_name:
         type: string
-        required: true   # Image name is required for Docker build and push
-      image_tag:
-        type: string
-        required: false  # Optional, default to release-please version if not provided
-  
-  
+        required: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   release-please:
     runs-on: ubuntu-latest
@@ -51,7 +67,7 @@ jobs:
       minor: ${{ steps.release-please.outputs.minor }}
       patch: ${{ steps.release-please.outputs.patch }}
     steps:
-      - uses: googleapis/release-please-action@v4
+      - uses: googleapis/release-please-action@v5.0.0
         id: release-please
         with:
           release-type: go
@@ -61,7 +77,7 @@ jobs:
     needs: release-please
     if: needs.release-please.outputs.release_created
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0
 
@@ -86,29 +102,33 @@ jobs:
         with:
           annotations: |
             org.opencontainers.image.authors=${{ inputs.authors }}
+            org.opencontainers.image.created={{commit_date 'YYYY-MM-DDTHH:mm:ss[Z]'}}
             org.opencontainers.image.url=${{ inputs.url }}
             org.opencontainers.image.source=${{ inputs.source }}
             org.opencontainers.image.description=${{ inputs.description }}
             org.opencontainers.image.title=${{ inputs.title }}
             org.opencontainers.image.licenses=${{ inputs.licenses }}
+            org.opencontainers.image.revision=${{ github.sha }}
             org.opencontainers.image.vendor=${{ inputs.vendor }}
             org.opencontainers.image.version=v${{ needs.release-please.outputs.major }}.${{ needs.release-please.outputs.minor }}.${{ needs.release-please.outputs.patch }}
           labels: |
             org.opencontainers.image.authors=${{ inputs.authors }}
+            org.opencontainers.image.created={{commit_date 'YYYY-MM-DDTHH:mm:ss[Z]'}}
             org.opencontainers.image.url=${{ inputs.url }}
             org.opencontainers.image.source=${{ inputs.source }}
             org.opencontainers.image.description=${{ inputs.description }}
             org.opencontainers.image.title=${{ inputs.title }}
             org.opencontainers.image.licenses=${{ inputs.licenses }}
+            org.opencontainers.image.revision=${{ github.sha }}
             org.opencontainers.image.vendor=${{ inputs.vendor }}
             org.opencontainers.image.version=v${{ needs.release-please.outputs.major }}.${{ needs.release-please.outputs.minor }}.${{ needs.release-please.outputs.patch }}
           images: |
-            ${{ inputs.docker_url }}/${{ inputs.image_name }}:v${{ needs.release-please.outputs.major }}.${{ needs.release-please.outputs.minor }}.${{ needs.release-please.outputs.patch }}
-            ${{ inputs.docker_url }}/${{ inputs.image_name }}:latest
+            ${{ inputs.docker_url }}/${{ inputs.registry_namespace }}/${{ inputs.image_name }}
         env:
           DOCKER_METADATA_ANNOTATIONS_LEVELS: manifest,index
 
       - name: Build and push
+        id: build
         uses: docker/build-push-action@v7
         with:
           context: ${{ inputs.docker_context }}
@@ -117,5 +137,17 @@ jobs:
           annotations: ${{ steps.meta.outputs.annotations }}
           labels: ${{ steps.meta.outputs.labels }}
           tags: |
-            ${{ inputs.docker_url }}/${{ inputs.image_name }}:v${{ needs.release-please.outputs.major }}.${{ needs.release-please.outputs.minor }}.${{ needs.release-please.outputs.patch }}
-            ${{ inputs.docker_url }}/${{ inputs.image_name }}:latest
+            ${{ inputs.docker_url }}/${{ inputs.registry_namespace }}/${{ inputs.image_name }}:v${{ needs.release-please.outputs.major }}.${{ needs.release-please.outputs.minor }}.${{ needs.release-please.outputs.patch }}
+            ${{ inputs.docker_url }}/${{ inputs.registry_namespace }}/${{ inputs.image_name }}:latest
+
+      - name: Sign and verify image digest
+        uses: Jmainguy/notation-action@v1
+        with:
+          version: 1.3.2
+          artifact: ${{ inputs.docker_url }}/${{ inputs.registry_namespace }}/${{ inputs.image_name }}@${{ steps.build.outputs.digest }}
+          key-name: ${{ inputs.notation_key_name }}
+          private-key: ${{ secrets.notation_private_key }}
+          certificate-chain: ${{ secrets.notation_certificate_chain }}
+          ca-certificate: ${{ secrets.notation_ca_certificate }}
+          username: ${{ secrets.docker_username }}
+          password: ${{ secrets.docker_password }}
