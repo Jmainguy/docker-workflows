@@ -1,5 +1,16 @@
 # Changelog
 
+## [4.0.0](https://github.com/Jmainguy/docker-workflows/compare/v3.0.1...v4.0.0) (2026-08-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* sign OCI image releases with Notation
+
+### Features
+
+* sign OCI image releases with Notation ([9954c80](https://github.com/Jmainguy/docker-workflows/commit/9954c8003ca51c7e2c9632195d8bbce206d054cb))
+
 ## [3.0.1](https://github.com/Jmainguy/docker-workflows/compare/v3.0.0...v3.0.1) (2024-10-24)
 
 
