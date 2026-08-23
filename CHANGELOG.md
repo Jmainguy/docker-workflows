@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.0.1](https://github.com/Jmainguy/docker-workflows/compare/v4.0.0...v4.0.1) (2026-08-23)
+
+
+### Bug Fixes
+
+* disable incompatible BuildKit provenance manifest ([81b8289](https://github.com/Jmainguy/docker-workflows/commit/81b8289aa54bb930966de01b82f3f69370492c35))
+
 ## [4.0.0](https://github.com/Jmainguy/docker-workflows/compare/v3.0.1...v4.0.0) (2026-08-23)
 
 
